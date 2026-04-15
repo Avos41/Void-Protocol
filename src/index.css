@@ -1,0 +1,419 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Deep Space palette ─────────────────────── */
+  --color-void-bg: #0a0a1a;
+  --color-void-surface: #0f1123;
+  --color-void-surface-light: #151533;
+  --color-void-border: #1a1a3e;
+  --color-void-text: #e0e0f0;
+  --color-void-muted: #4a4a7a;
+  --color-void-dim: #2a2a4a;
+
+  /* ── Accent: Electric Cyan ─────────────────── */
+  --color-cyan: #00f0ff;
+  --color-cyan-dim: #00a0b0;
+  --color-cyan-glow: #00f0ff40;
+
+  /* ── Amber warning ─────────────────────────── */
+  --color-amber: #ff9500;
+  --color-amber-dim: #b06800;
+
+  /* ── Danger red ────────────────────────────── */
+  --color-red: #ff2d55;
+  --color-red-dim: #b0203c;
+
+  /* ── Roles ─────────────────────────────────── */
+  --color-crew: #00f0ff;
+  --color-saboteur: #ff2d55;
+  --color-void-success: #22c55e;
+
+  /* ── Legacy compat ─────────────────────────── */
+  --color-void-accent: #00f0ff;
+  --color-void-accent-bright: #60fdff;
+  --color-void-danger: #ff2d55;
+  --color-void-warning: #ff9500;
+}
+
+/* ── Base ──────────────────────────────────────── */
+
+body {
+  margin: 0;
+  background-color: var(--color-void-bg);
+  color: var(--color-void-text);
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Focus visible ────────────────────────────── */
+
+*:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Glow ──────────────────────────────────────── */
+
+.glow-cyan {
+  text-shadow:
+    0 0 7px #00f0ff80,
+    0 0 20px #00f0ff40,
+    0 0 60px #00f0ff20;
+}
+
+/* ── Scanlines ─────────────────────────────────── */
+
+.scanlines::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ── Editor Scanline Overlay ──────────────────── */
+
+.editor-scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 240, 255, 0.015) 3px,
+    rgba(0, 240, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 5;
+  border-radius: inherit;
+}
+
+/* ── Glitch keyframes ──────────────────────────── */
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  5%       { clip-path: inset(40% 0 30% 0);  transform: translate(-4px, -2px); }
+  10%      { clip-path: inset(80% 0 5% 0);   transform: translate(5px, 1px); }
+  15%      { clip-path: inset(10% 0 60% 0);  transform: translate(-3px, 2px); }
+  20%      { clip-path: inset(0 0 100% 0);   transform: translate(0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  5%       { clip-path: inset(25% 0 50% 0);  transform: translate(4px, 1px); }
+  10%      { clip-path: inset(70% 0 10% 0);  transform: translate(-5px, -1px); }
+  15%      { clip-path: inset(5% 0 70% 0);   transform: translate(2px, -2px); }
+  20%      { clip-path: inset(0 0 100% 0);   transform: translate(0); }
+}
+
+@keyframes flicker {
+  0%, 100%  { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.8; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.6; }
+  97%       { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px #00f0ff30, 0 0 60px #00f0ff10, inset 0 0 20px #00f0ff08; }
+  50%      { box-shadow: 0 0 30px #00f0ff50, 0 0 80px #00f0ff20, inset 0 0 30px #00f0ff12; }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.2; }
+  50%      { opacity: 1; }
+}
+
+/* ── Button Glow on Hover ────────────────────── */
+
+@keyframes button-glow-hover {
+  0%, 100% {
+    box-shadow:
+      0 0 8px var(--color-cyan-glow),
+      0 0 20px rgba(0, 240, 255, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 16px var(--color-cyan-glow),
+      0 0 40px rgba(0, 240, 255, 0.15),
+      inset 0 0 12px rgba(0, 240, 255, 0.05);
+  }
+}
+
+/* ── Breathing Animation for Player Cards ────── */
+
+@keyframes breathing {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.012); }
+}
+
+.breathing {
+  animation: breathing 3s ease-in-out infinite;
+}
+
+/* ── Timer Pulse Red ─────────────────────────── */
+
+@keyframes timer-pulse-urgent {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 149, 0, 0.3); }
+  50%      { box-shadow: 0 0 16px rgba(255, 149, 0, 0.6); }
+}
+
+@keyframes timer-pulse-critical {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 45, 85, 0.4);
+    background-color: var(--color-red);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 45, 85, 0.8), 0 0 40px rgba(255, 45, 85, 0.3);
+    background-color: #ff4d6d;
+  }
+}
+
+/* ── Typewriter Animation ────────────────────── */
+
+@keyframes typewriter-cursor {
+  0%, 100% { border-right-color: var(--color-cyan); }
+  50%      { border-right-color: transparent; }
+}
+
+.typewriter-cursor {
+  border-right: 2px solid var(--color-cyan);
+  animation: typewriter-cursor 0.8s step-end infinite;
+}
+
+/* ── Countdown shake ──────────────────────────────── */
+
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10%      { transform: translate(-3px, 2px); }
+  20%      { transform: translate(4px, -1px); }
+  30%      { transform: translate(-2px, -3px); }
+  40%      { transform: translate(3px, 1px); }
+  50%      { transform: translate(-1px, 3px); }
+  60%      { transform: translate(2px, -2px); }
+  70%      { transform: translate(-4px, 1px); }
+  80%      { transform: translate(1px, -1px); }
+  90%      { transform: translate(-2px, 2px); }
+}
+
+@keyframes countdown-pulse {
+  0%   { transform: scale(0.3); opacity: 0; }
+  40%  { transform: scale(1.15); opacity: 1; }
+  70%  { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes countdown-exit {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+
+/* ── Role reveal glow ─────────────────────────── */
+
+.role-glow-cyan {
+  text-shadow:
+    0 0 10px #00f0ff,
+    0 0 30px #00f0ff80,
+    0 0 60px #00f0ff40,
+    0 0 100px #00f0ff20;
+  animation: role-pulse-cyan 2s ease-in-out infinite;
+}
+
+.role-glow-red {
+  text-shadow:
+    0 0 10px #ff2d55,
+    0 0 30px #ff2d5580,
+    0 0 60px #ff2d5540,
+    0 0 100px #ff2d5520;
+  animation: role-pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes role-pulse-cyan {
+  0%, 100% {
+    text-shadow:
+      0 0 10px #00f0ff,
+      0 0 30px #00f0ff80,
+      0 0 60px #00f0ff40;
+  }
+  50% {
+    text-shadow:
+      0 0 15px #00f0ff,
+      0 0 40px #00f0ffb0,
+      0 0 80px #00f0ff60,
+      0 0 120px #00f0ff30;
+  }
+}
+
+@keyframes role-pulse-red {
+  0%, 100% {
+    text-shadow:
+      0 0 10px #ff2d55,
+      0 0 30px #ff2d5580,
+      0 0 60px #ff2d5540;
+  }
+  50% {
+    text-shadow:
+      0 0 15px #ff2d55,
+      0 0 40px #ff2d55b0,
+      0 0 80px #ff2d5560,
+      0 0 120px #ff2d5530;
+  }
+}
+
+/* ── CRT vignette ──────────────────────────────── */
+
+.crt-vignette::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: 40;
+}
+
+/* ── Saboteur vignette ────────────────────────────── */
+
+.saboteur-vignette::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(255,45,85,0.08) 100%);
+  pointer-events: none;
+  z-index: 39;
+  animation: saboteur-pulse-vignette 4s ease-in-out infinite;
+}
+
+@keyframes saboteur-pulse-vignette {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ── Results Screen ───────────────────────────────── */
+
+@keyframes red-alarm {
+  0%, 100% { opacity: 0; }
+  15% { opacity: 0.15; }
+  30% { opacity: 0; }
+  45% { opacity: 0.1; }
+  60% { opacity: 0; }
+  75% { opacity: 0.2; }
+  90% { opacity: 0; }
+}
+
+.results-alarm-overlay {
+  animation: red-alarm 2s ease-in-out infinite;
+}
+
+.results-shake {
+  animation: screen-shake 0.3s ease-in-out;
+}
+
+/* ── Responsive Design ────────────────────────────── */
+
+/* Ensure minimum viewport */
+html {
+  min-width: 360px;
+}
+
+/* Mobile-first game screen adjustments */
+@media (max-width: 767px) {
+  .game-layout {
+    flex-direction: column !important;
+  }
+
+  .game-editor-panel {
+    min-height: 40vh;
+  }
+
+  .game-side-panel {
+    width: 100% !important;
+    border-left: none !important;
+    border-top: 1px solid var(--color-void-border);
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .meeting-layout {
+    flex-direction: column !important;
+  }
+
+  .meeting-chat-panel {
+    width: 100% !important;
+    border-left: none !important;
+    border-top: 1px solid var(--color-void-border);
+    min-height: 200px;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .game-side-panel {
+    width: 280px !important;
+  }
+
+  .meeting-chat-panel {
+    width: 260px !important;
+  }
+}
+
+/* ── Reduced Motion ───────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .scanlines::after {
+    display: none;
+  }
+
+  .editor-scanlines::after {
+    display: none;
+  }
+
+  .breathing {
+    animation: none !important;
+  }
+
+  .glow-cyan {
+    text-shadow: none;
+  }
+
+  .role-glow-cyan,
+  .role-glow-red {
+    animation: none !important;
+  }
+
+  .crt-vignette::before {
+    display: none;
+  }
+}
