@@ -43,9 +43,9 @@ export function getTransitionType(
 // ── Transition Variant Configs ─────────────────────────
 
 interface TransitionConfig {
-  initial: Record<string, unknown>;
-  animate: Record<string, unknown>;
-  exit: Record<string, unknown>;
+  initial: any;
+  animate: any;
+  exit: any;
   transition: Transition;
 }
 

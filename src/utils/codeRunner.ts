@@ -36,7 +36,7 @@ export async function initPyodide(): Promise<void> {
 
   loadingPromise = (async () => {
     // Dynamically load pyodide from CDN if not already present
-    if (typeof globalThis.loadPyodide === "undefined") {
+    if (typeof (globalThis as any).loadPyodide === "undefined") {
       await new Promise<void>((resolve, reject) => {
         const script = document.createElement("script");
         script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";

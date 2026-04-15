@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from "react";
 import PartySocket from "partysocket";
 import { useGameStore } from "../stores/gameStore";
+import { MessageType } from "../types/game";
 import type { ClientMessage, ServerMessage } from "../types/game";
 
 const PARTYKIT_HOST =
@@ -56,11 +57,11 @@ export function usePartySocket() {
         setConnected(true);
 
         // Immediately send JOIN with the values passed in (not from closure)
-        const joinMsg: ClientMessage = {
-          type: "JOIN" as ClientMessage["type"],
+        const joinMsg = {
+          type: MessageType.JOIN,
           playerName,
           avatar,
-        };
+        } as ClientMessage;
         newSocket.send(JSON.stringify(joinMsg));
       });
 
