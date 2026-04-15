@@ -165,19 +165,6 @@ export function LandingPage() {
         <SystemStatus />
       </motion.div>
 
-      {/* ── Hackathon Badge — top left ────────── */}
-      <motion.div
-        className="fixed top-4 left-4 z-30"
-        variants={fadeUp}
-      >
-        <div
-          className="px-3 py-1.5 border border-amber/30 rounded bg-amber/5 text-[10px] sm:text-xs font-mono tracking-wider text-amber"
-          style={{ animation: "drift 6s ease-in-out infinite" }}
-        >
-          Built for ImpactHacks 2026
-        </div>
-      </motion.div>
-
       {/* ── Main Content ──────────────────────── */}
       <div className="relative z-10 flex flex-col items-center max-w-2xl w-full">
 
